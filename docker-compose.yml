@@ -14,12 +14,20 @@ services:
       links: 
         - kong-database:kong-database
       environment: 
-        KONG_DATABASE: cassandra
+        KONG_DATABASE: postgres
         KONG_CASSANDRA_CONTACT_POINTS: :kong-database
         KONG_PG_HOST: kong-database
     kong-database:
-      image: cassandra:2.2
+      image: postgres:9.4
       ports: 
-        - 9042:9042
-      expose:
-        - 9042
+        - 5432:5432
+      environment:
+        POSTGRES_USER: kong
+        POSTGRES_DB: kong
+    # Set http://kong:8001 or docker internal IP (ex 172.24.0.3:8001)
+    kong-dashboard:
+      image: pgbi/kong-dashboard
+      ports:
+        - 8080:8080
+      links:
+        - kong:kong
