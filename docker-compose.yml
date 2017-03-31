@@ -26,7 +26,7 @@ services:
         POSTGRES_DB: kong
     # Set http://kong:8001 or docker internal IP (ex 172.24.0.3:8001)
     kong-dashboard:
-      image: pgbi/kong-dashboard
+      image: haha1903/kong-dashboard #pgbi/kong-dashboard
       ports:
         - 8080:8080
       links:
